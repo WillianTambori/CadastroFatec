@@ -1,5 +1,8 @@
-<?php
-require_once "ConexaoBD.php";
+<?php 
+
+namespace App\models;
+use App\Conexao\ConexaoBD;
+
 class ContatoModel{
     private $conexao; // ConexaoBD
 

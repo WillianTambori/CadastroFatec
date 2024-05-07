@@ -114,19 +114,27 @@
             <div class="col">    
                 <input type="text" class="form-control" <?php echo $whatzaap ?> name="whatzaap" id="whatzaap" required>
             </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <input type="text" class="form-control" <?php echo $email ?> name="email" id="email" required>
             </div>
             <div class="col">    
                 <input type="text" class="form-control" <?php echo $Escola ?> name="Escola" id="Escola" required>
             </div>
+            <div class="col">    
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>escolha um curso</option>
+                    <?php foreach($Curso as $ctt){
+                        echo "<option value=".$ctt['id'] ." > ". $ctt['curso'] . "</option>";
+                    }?>
+            </select>
+             </div>
             <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php echo $aceitaContato ?> name="aceitaContato" id="aceitaContato" required> >
             <label class="form-check-label" for="exampleCheck1">você concorda em receber informações sobre FATEC?</label>
             </div>
-            <div class="col">    
             <input type="submit" class="btn btn-outline-success" name="<?php echo $enviar ?>" required>
-            </div>
         </div>
     </form>
 

@@ -1,19 +1,26 @@
 <?php
-require_once "models/ContatoModel.php";
+namespace App\controllers;
+
+use App\models;
+use App\Conexao\ConexaoBD;
+
 
 class ContatoController{
     private $ContatoModelo;
+    private $CursoModelo;
 
     public function __construct(ConexaoBD $bd)
     {
-        $this->ContatoModelo = new ContatoModel($bd);
+        $this->ContatoModelo = new models\ContatoModel($bd);
+        $this->CursoModelo = new models\CursoModel($bd);
         
-    }
+    }   
 
     public function listarContato()
     {
+        $Curso = $this->CursoModelo->obterCurso();
         $Contato = $this->ContatoModelo->obterContato();
-        include "views/Contato.php";
+        include "App/views/Contato.php";
     }
     public function ExcluirContatoPorId($cod){
         $Contato = $this->ContatoModelo->excluirContato($cod);

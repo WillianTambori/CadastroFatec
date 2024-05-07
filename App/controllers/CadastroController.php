@@ -1,21 +1,27 @@
 <?php
-require_once "ConexaoBD.php";
-require_once "models/CadastroModel.php";
+namespace App\controllers;
+
+use App\models;
+use App\Conexao\ConexaoBD;
 
 class CadastroController{
     private $CadastroModelo;
+    private $ResponsavelModelo;
 
     public function __construct(ConexaoBD $bd)
     {
-        $this->CadastroModelo = new CadastroModel($bd);
+        $this->CadastroModelo = new models\CadastroModel($bd);
+        $this->ResponsavelModelo = new models\ResponsavelModel($bd);
+
         //$this->CadastroModelo = new CadastroModelo($banco);
         
     }
 
     public function listarCadastro()
     {
+        $Responsavel = $this->ResponsavelModelo->obterResponsavel();
         $Cadastro = $this->CadastroModelo->obterCadastro();
-        include "views/Cadastro.php";
+        include "App/views/Cadastro.php";
     }
     public function ExcluirCadastroPorId($cod){
         $Cadastro = $this->CadastroModelo->excluirCadastro($cod);

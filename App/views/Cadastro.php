@@ -102,8 +102,13 @@
     <div class="col">    
         <input type="text" class="form-control" <?php echo $Forma ?> name="Forma" id="Forma" required>
     </div>
-    <div class="col">
-        <input type="number" class="form-control" <?php echo $Responsavel_id ?> name="Responsavel_id" id="Responsavel_id" required>
+    <div class="col">    
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Quem é o preenchedor</option>
+        <?php foreach($Responsavel as $ctt){
+            echo "<option value=".$ctt['id'] ." > ". $ctt['nome'] . "</option>";
+        }?>
+    </select>
     </div>
     <div class="col">    
         <input type="submit" class="btn btn-outline-success" name="<?php echo $enviar ?>" required>

@@ -1,16 +1,19 @@
 <?php
     ini_set("display_errors","On");
 
-    include "views/Navs.php";
-    require_once "Config.php";
+
+    require_once "vendor/autoload.php";
+    require_once "App/views/Navs.php";
+    
     
     $classe = $_GET["class"];
     $metodo = $_GET["acao"];
     
-    $classe .= 'Controller';
+    $classe = "App\\controllers\\" . $classe . "Controller";
 
-    require_once 'controllers/'.$classe.'.php';
-    require_once "ConexaoBD.php";
+    use App\Conexao\ConexaoBD;
+
+
     $bd = new ConexaoBD(DBHOST,DBNAME,DBUSER,DBPASS);
     
     $obj = new $classe($bd);

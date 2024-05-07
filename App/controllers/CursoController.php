@@ -1,6 +1,9 @@
 <?php
-require_once "ConexaoBD.php";
-require_once "models/CursoModel.php";
+namespace App\controllers;
+
+use App\models\CursoModel;
+use App\Conexao\ConexaoBD;
+
 
 class CursoController{
     private $CursoModelo;
@@ -15,7 +18,7 @@ class CursoController{
     public function listarCurso()
     {
         $Curso = $this->CursoModelo->obterCurso();
-        include "views/Curso.php";
+        include "App/views/Curso.php";
     }
     public function ExcluirCursoPorId($cod){
         $Curso = $this->CursoModelo->excluirCurso($cod);

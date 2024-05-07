@@ -1,5 +1,9 @@
 <?php
-require_once "ConexaoBD.php";
+
+
+namespace App\models;
+use App\Conexao\ConexaoBD;
+
 class CursoModel{
     private $conexao; // ConexaoBD
 

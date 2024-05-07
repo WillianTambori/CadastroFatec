@@ -1,6 +1,9 @@
 <?php
-require_once "ConexaoBD.php";
-require_once "models/ResponsavelModel.php";
+namespace App\controllers;
+
+use App\models\ResponsavelModel;
+use App\Conexao\ConexaoBD;
+
 
 class ResponsavelController{
     private $ResponsavelModelo;
@@ -15,7 +18,7 @@ class ResponsavelController{
     public function listarResponsavel()
     {
         $Responsavel = $this->ResponsavelModelo->obterResponsavel();
-        include "views/Responsavel.php";
+        include "App/views/Responsavel.php";
     }
     public function ExcluirResponsavelPorId($cod){
         $Responsavel = $this->ResponsavelModelo->excluirResponsavel($cod);

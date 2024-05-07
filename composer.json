@@ -1,0 +1,21 @@
+{
+    "name": "willian/cadastro-fatec",
+    "description": "Gerenciador Fatec",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App"
+        },
+        "files": [
+            "Config.php"
+        ]
+        
+    },
+    "authors": [
+        {
+            "name": "willianTambori",
+            "email": "msn.willian@gmail.com"
+        }
+    ],
+    "require": {}
+}

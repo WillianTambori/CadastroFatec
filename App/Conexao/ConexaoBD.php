@@ -1,4 +1,9 @@
 <?php
+namespace App\Conexao;
+
+use \PDO;
+use \PDOException;
+
 class ConexaoBD{
     
     // private $caminho;

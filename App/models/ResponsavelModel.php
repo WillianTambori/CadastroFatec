@@ -1,5 +1,8 @@
 <?php
-require_once "ConexaoBD.php";
+
+namespace App\models;
+use App\Conexao\ConexaoBD;
+
 class ResponsavelModel{
     private $conexao; // ConexaoBD
 
