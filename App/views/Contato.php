@@ -9,6 +9,18 @@
     $aceitaContato = "value= '1' required checked";
     $enviar =  "adicionar";
     $formulario = "Cadastrar" ;
+    $Curso_id = "Selecione um curso";
+
+    function NomeId($array,$id){
+        foreach($array as $ar){
+            if($ar["id"] === $id){
+                return $ar["curso"];
+            }
+        }
+    }
+
+
+
     if(isset($_GET["id"]) && is_numeric($_GET["id"]) && isset($_GET["ex"])){
         $cod = $_GET["id"];
         $ex = $_GET["ex"];
@@ -23,6 +35,7 @@
                 $Escola = "value= ". $ctt['Escola'];
                 $aceitaContato = "value= ". $ctt['aceitaContato'];
                 $Cadastro_id = "value= ".$ctt["Cadastro_id"] ;
+                $Curso_id = "value= ". $ctt["Curso_id"];
                 $enviar =  "editar";
                 
             }
@@ -38,9 +51,9 @@
         $whatzaap = $_POST["whatzaap"];
         $email = $_POST["email"];
         $Escola = $_POST["Escola"];
-        $aceitaContato = $_POST["aceitaContato"];
         $Cadastro_id = $_POST["Cadastro_id"];
         $Curso_id = $_POST["Curso_id"];
+        $aceitaContato = $_POST["aceitaContato"];
 
         $this->AdicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id, $Curso_id);
         header('location:./index.php?class=Contato&acao=ListarContato');
@@ -53,10 +66,11 @@
         $whatzaap = $_POST["whatzaap"];
         $email = $_POST["email"];
         $Escola = $_POST["Escola"];
-        $aceitaContato = $_POST["aceitaContato"];
         $Cadastro_id = $_POST["Cadastro_id"];
+        $Curso_id = $_POST["Curso_id"];
+        isset($_POST["aceitaContato"])?$aceitaContato =1:$aceitaContato =0;
 
-        $this->AlterarContato($codigo, $nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id);
+        $this->AlterarContato($codigo, $nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id,$Curso_id);
         header('location:./index.php?class=Contato&acao=ListarContato');
     
     }
@@ -72,7 +86,8 @@
         <li class="list-group-item"><?php echo $ctt['email'] ?></li>
         <li class="list-group-item"><?php echo $ctt['Escola'] ?></li>
         <li class="list-group-item"><?php echo $ctt['whatzaap'] ?></li>
-        <li class="list-group-item"><?php echo $ctt['aceitaContato'] ?></li>
+        <li class="list-group-item"><?php echo Nomeid($Curso,$ctt['Curso_id']) ?></li>
+        <li class="list-group-item"> <?php echo $ctt['aceitaContato']? "Sim" : "Não"; ?></li>
         <button type="button" class="btn btn-warning">
             <a href='index.php?class=Contato&acao=ListarContato&id=<?php echo $ctt['id'] ?>&ex=1'>editar</a>
         </button>
@@ -109,14 +124,15 @@
         </div>
         <div class="col">    
             <select class="form-select" aria-label="Default select example" name='Curso_id' id='Curso_id'>
-                <option selected>escolha um curso</option>
+                <option <?php echo $Curso_id ?> selected>escolha um curso</option>
                 <?php foreach($Curso as $ctt){
                     echo "<option value=".$ctt['id'] ." > ". $ctt['curso'] . "</option>";
                 }?>
         </select>
             </div>
         <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php echo $aceitaContato ?> name="aceitaContato" id="aceitaContato" required> >
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php echo $aceitaContato ?> name="aceitaContato" id="aceitaContato"> >
+        <!-- <input type="hidden" value="0" name="aceitaContato" id="aceitaContato"> -->
         <label class="form-check-label" for="exampleCheck1">você concorda em receber informações sobre FATEC?</label>
         </div>
         <input type="submit" class="btn btn-outline-success" name="<?php echo $enviar ?>" required>

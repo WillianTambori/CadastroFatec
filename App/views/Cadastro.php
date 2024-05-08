@@ -5,6 +5,16 @@
     $Responsavel_id = "placeholder= 'preenchedor'";
     $enviar =  "adicionar";
     $formulario = "Cadastrar" ;
+
+    function NomeId($array,$id){
+        foreach($array as $ar){
+            if($ar["id"] === $id){
+                return $ar["nome"];
+            }
+        }
+    }
+
+
     if(isset($_GET["id"]) && is_numeric($_GET["id"]) && isset($_GET["ex"])){
         $cod = $_GET["id"];
         $ex = $_GET["ex"];
@@ -57,7 +67,7 @@
             <li class="list-group-item"><?php echo $cdt['id'] ?></li>
             <li class="list-group-item"><?php echo $cdt['Data'] ?></li>
             <li class="list-group-item"><?php echo $cdt['Forma'] ?></li>
-            <li class="list-group-item"><?php echo $cdt['Responsavel_id'] ?></li>
+            <li class="list-group-item"><?php echo NomeId($Responsavel,$cdt['Responsavel_id']) ?></li>
             <button type="button" class="btn btn-warning">
                 <a href='index.php?class=Cadastro&acao=ListarCadastro&id=<?php echo $cdt['id'] ?>&ex=1'>editar</a>
             </button>
