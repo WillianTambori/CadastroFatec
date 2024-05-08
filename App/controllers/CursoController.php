@@ -1,22 +1,26 @@
 <?php
 namespace App\controllers;
 
-use App\models\CursoModel;
+use App\models;
 use App\Conexao\ConexaoBD;
 
 
 class CursoController{
     private $CursoModelo;
+    private $ResponsavelModelo;
 
     public function __construct(ConexaoBD $bd)
     {
-        $this->CursoModelo = new CursoModel($bd);
+        $this->CursoModelo = new models\CursoModel($bd);
+        $this->ResponsavelModelo = new models\ResponsavelModel($bd);
+
         //$this->CursoModelo = new CursoModelo($banco);
         
     }
 
     public function listarCurso()
     {
+        $Responsavel = $this->ResponsavelModelo->obterResponsavel();
         $Curso = $this->CursoModelo->obterCurso();
         include "App/views/Curso.php";
     }

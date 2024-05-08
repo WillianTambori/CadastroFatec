@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-        body{
-            width: 800px;
-            margin: auto;
-        }
-    </style>
-</head>
-<body>
-    <h1>CRUD de Cadastro</h1>
     <?php
     $codigo = " placeholder= '-----'";
     $Data= "placeholder= 'data'";
@@ -103,10 +86,10 @@
         <input type="text" class="form-control" <?php echo $Forma ?> name="Forma" id="Forma" required>
     </div>
     <div class="col">    
-    <select class="form-select" aria-label="Default select example">
+    <select class="form-select" aria-label="Default select example" name='Responsavel_id' >
         <option selected>Quem é o preenchedor</option>
         <?php foreach($Responsavel as $ctt){
-            echo "<option value=".$ctt['id'] ." > ". $ctt['nome'] . "</option>";
+            echo "<option value=".$ctt['id'] ."  id='Responsavel_id' > ". $ctt['nome'] . "</option>";
         }?>
     </select>
     </div>
@@ -116,7 +99,3 @@
     </div>
     </form>
 
-    
-   
-</body>
-</html>

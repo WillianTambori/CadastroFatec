@@ -24,15 +24,15 @@ class ContatoModel{
 
     }
     
-    public function adicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id)
+    public function adicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id, $Curso_id)
     {
-        $comandoSQL = "INSERT INTO Contato (nome, email, Escola, whatzaap, aceitaContato, Cadastro_id) values ('$nome','$email','$Escola','$whatzaap','$aceitaContato','$Cadastro_id')";
+        $comandoSQL = "INSERT INTO Contato (nome, email, Escola, whatzaap, aceitaContato, Cadastro_id, Curso_id) values ('$nome','$email','$Escola','$whatzaap','$aceitaContato','$Cadastro_id','$Curso_id')";
         $this->conexao->executaComando($comandoSQL);
 
     }
-    public function alterarContato($codigo, $nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id)
+    public function alterarContato($codigo, $nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id,$Curso_id)
     {
-        $comandoSQL = "UPDATE Contato SET nome ='$nome', email='$email', Escola ='$Escola', whatzaap='$whatzaap', aceitaContato='$aceitaContato', Cadastro_id='$Cadastro_id' WHERE id = $codigo";
+        $comandoSQL = "UPDATE Contato SET nome ='$nome', email='$email', Escola ='$Escola', whatzaap='$whatzaap', aceitaContato='$aceitaContato', Cadastro_id='$Cadastro_id', Curso_id = '$Curso_id' WHERE id = $codigo";
         return $this->conexao->executaComando($comandoSQL);
 
     }
