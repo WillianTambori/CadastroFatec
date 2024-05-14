@@ -23,6 +23,11 @@ class ContatoModel{
         return $this->conexao->executaSQL("SELECT * FROM Contato WHERE id = $codigo ");
 
     }
+
+    public function obterContatoPorCadastro($cadastro)
+    {
+        return $this->conexao->executaSQL("SELECT * FROM Contato WHERE Cadastro_id = $cadastro ");
+    }
     
     public function adicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id, $Curso_id)
     {

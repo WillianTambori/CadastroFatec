@@ -8,7 +8,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <style>
             body{
-                width: 800px;
+                width: 1000px;
                 margin: auto;
             }
         </style>
@@ -26,6 +26,7 @@
             $classe = $_GET["class"];
             $metodo = $_GET["acao"];
             
+            
             $classe = "App\\controllers\\" . $classe . "Controller";
 
             use App\Conexao\ConexaoBD;
@@ -35,9 +36,16 @@
             
             $obj = new $classe($bd);
 
-            $obj->$metodo();
+            if(isset($_POST["param"])){
+                $param = $_POST["param"];
+
+                $obj->$metodo($param);
+
+            }else{
+
+                $obj->$metodo();
+            }
             
-            //$controlador->ExcluirFonecedorPorId($cod);
         ?>
         </body>
 </html>
