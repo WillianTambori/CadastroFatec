@@ -26,19 +26,22 @@ class ContatoController{
     }
     public function ContatosPorCadastro($cadastro = null){
         
-        if($cadastro){
+        if(isset($cadastro[0])){
             $contatos = [];
-            for($i =0; $i < count($cadastro);$i++){
-                $cont = $this->ContatoModelo->obterContatoPorCadastro($cadastro[$i]);
+            for($i =0; $i < count($cadastro[0]);$i++){
+                $cont = $this->ContatoModelo->obterContatoPorCadastro($cadastro[0][$i]);
                 foreach($cont as $ctt){
-                array_push($contatos,$ctt);
+                if($cadastro[1] === "Todos os cursos"){array_push($contatos,$ctt);}
+                else{if($ctt['Curso_id'] === $cadastro[1]){array_push($contatos,$ctt);}}
                 }
             }
+            $Curso = $this->CursoModelo->obterCurso();
             $Cadastro = $this->CadastroModelo->obterCadastro();
             include_once "App/views/Contato/Cadastro.php";
         }
         else{
             $contatos =  [];
+            $Curso = $this->CursoModelo->obterCurso();
             $Cadastro = $this->CadastroModelo->obterCadastro();
             include_once "App/views/Contato/Cadastro.php";
 
