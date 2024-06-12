@@ -20,10 +20,21 @@ class CursoController{
 
     public function listarCurso()
     {
+        if(isset($_POST['adicionar'])) $this->AdicionarCurso($_POST['curso'],$_POST['periodo'],$_POST['Responsavel_id']);
+        if(isset($_POST['editar'])) $this->AlterarCurso($_POST['id'],$_POST['curso'],$_POST['periodo'],$_POST['Responsavel_id']);
+
+        if(isset($_GET["id"]) && is_numeric($_GET["id"]) && isset($_GET["ex"])){
+            if($_GET['ex'] === '1'){$Res = $this->CursoModelo->obterCursoPorId($_GET['id']);}
+            
+            if($_GET['ex'] === '2'){$this->CursoModelo->ExcluirCurso($_GET['id']);}
+        }
+        
         $Responsavel = $this->ResponsavelModelo->obterResponsavel();
-        $Curso = $this->CursoModelo->obterCurso();
-        include "App/views/Curso.php";
+        $Cursos = $this->CursoModelo->obterCurso();
+        include "App/views/curso/Curso.php";
+        
     }
+    
     public function ExcluirCursoPorId($cod){
         $Curso = $this->CursoModelo->excluirCurso($cod);
     }

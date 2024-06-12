@@ -17,5 +17,9 @@
             "email": "msn.willian@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "jhowbhz/apigratis-sdk-php": "^0.1.4",
+        "endroid/qr-code": "^5.0",
+        "phpmailer/phpmailer": "^6.9"
+    }
 }

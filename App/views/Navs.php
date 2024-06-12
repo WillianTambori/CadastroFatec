@@ -14,4 +14,10 @@
   <li class="nav-item">
     <a class="nav-link <?php echo ($_GET['acao']==='ContatosPorCadastro'?"active":"") ?>" href="index.php?class=Contato&acao=ContatosPorCadastro">Homes</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link <?php echo ($_GET['acao']==='conectar'?"active":"") ?>" href="index.php?class=Zaap&acao=iniciar">Zaap</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <?php echo ($_GET['acao']==='conectar'?"active":"") ?>" href="index.php?class=Email&acao=enviar">Email</a>
+  </li>
 </ul>

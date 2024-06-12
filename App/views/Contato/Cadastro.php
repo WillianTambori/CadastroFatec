@@ -1,4 +1,12 @@
-
+<?php
+function NomeId($array,$id){
+    foreach($array as $ar){
+        if($ar["id"] === $id){
+            return $ar["curso"];
+        }
+    }
+}
+?>
 
 <!-- <div class="container text-center"> -->
   <div class="row">
@@ -8,13 +16,6 @@
 
     <ul class="list-group">
         <?php
-        function NomeId($array,$id){
-            foreach($array as $ar){
-                if($ar["id"] === $id){
-                    return $ar["curso"];
-                }
-            }
-        }
         foreach($Cadastro as $cdt){?>
         <li class="list-group-item">
             <div class="d-flex w-100 justify-content-between">

@@ -20,7 +20,12 @@ class CadastroModel{
     }
     public function obterCadastroPorId($codigo)
     {
-        return $this->conexao->executaSQL("SELECT * FROM Cadastro WHERE id = $codigo ");
+        return $this->conexao->executaSQL("SELECT * FROM Cadastro WHERE id = '$codigo' ");
+
+    }
+    public function obterCadastroPorResponsavel($codigo)
+    {
+        return $this->conexao->executaSQL("SELECT * FROM Cadastro WHERE Responsavel_id = '$codigo' ");
 
     }
     
