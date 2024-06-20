@@ -24,6 +24,11 @@ class CursoModel{
         return $this->conexao->executaSQL("SELECT * FROM Curso WHERE id = $codigo ");
 
     }
+    public function obterCursoPorContato($whatzaap)
+    {
+        return $this->conexao->executaSQL("SELECT * FROM Contato_has_Curso WHERE whatzaap_id = $whatzaap");
+
+    }
     
     public function adicionarCurso($curso,$periodo,$Responsavel_id)
     {

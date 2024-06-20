@@ -54,7 +54,14 @@ class ConexaoBD{
             return true;
 
         }catch(PDOException $e){
-            die("Erro ao executar o comando sql" . $e->getMessage());
+            if ($e->getCode() == 23000) {
+               if($e->errorInfo[1] == 1062)$cs = "Erro: O registro já existe";
+               if($e->errorInfo[1] == 1451)$cs = "Erro: O registro está em uso";
+               include_once "App/views/Erro.php";
+            } else {
+                // Capturar outros erros
+                echo "<h1>Erro<h1>: " . $e->getMessage();
+            }
 
         }
     }

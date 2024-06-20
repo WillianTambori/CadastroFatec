@@ -1,11 +1,3 @@
-<?php
-function NomeIdCurso($array,$id){
-    foreach($array as $ar){
-        if($ar["id"] === $id){
-            return $ar["curso"];
-        }
-    }
-}?>
 <div style="width: 280px; padding: 10px">
 <form action="index.php?class=Contato&acao=ListarContato&ag=<?= $_GET['ag']?>" method="post">
     <div class="row">
@@ -22,7 +14,7 @@ function NomeIdCurso($array,$id){
     </div>
     <div class="row" style="margin-top:10px;">
         <div class="col">    
-            <input type="text" class="form-control" <?php echo isset($cadastro)?"value= ".$cadastro[0]['whatzaap']:" placeholder= whtazaap" ?>  name="whatzaap" id="whatzaap" required>
+            <input type="text" class="form-control" <?php echo isset($cadastro)?"value= ".$cadastro[0]['whatzaap']:" placeholder= whatsApp" ?>  name="whatzaap" id="whatzaap" required>
         </div>
     </div>
     <div class="row" style="margin-top:10px;">
@@ -31,20 +23,34 @@ function NomeIdCurso($array,$id){
         </div>
     </div>
     <div class="row" style="margin-top:10px;">
-        <div class="col">    
-            <select class="form-select" aria-label="Default select example" name='Curso_id' id='Curso_id'>
-                <option <?php echo isset($cadastro)?"value= ".$cadastro[0]['Curso_id']:"value=''" ?>  selected><?php echo isset($cadastro)? NomeIdCurso($Curso,$cadastro[0]["Curso_id"]):"Seleciona o curso" ?></option>
-                <?php foreach($Curso as $ctt){
-                    echo "<option value=".$ctt['id'] ." > ". $ctt['curso'] . "</option>";
-                }?>
-            </select>
+        <label class="form-check-label" for="exampleCheck1">Escolha um curso</label>
+        <div class="scrollable-box" style="max-height: 120px; overflow-y: auto;">
+        <ul class="list-group">
+                 <?php foreach($Curso as $ctt){       
+                        echo 
+                        "<li class='list-group-item'>
+                        
+                        <input class='form-check-input me-1' type='checkbox' value=".$ctt['id'] ."  name='Curso_id[]' id='Curso_id'
+                        ";
+                        if(isset($cadastro[0]))foreach($CursoInscrito as $ct)if($ct['Curso_id'] === $ctt['id']) echo "checked";
+                         
+                         echo " id='firstCheckbox' >
+
+                        <label class='form-check-label' for='firstCheckbox'>". $ctt['curso'] . " - ".$ctt['periodo']. "</label>
+                    
+                        
+                        </li>
+                        ";
+                    
+                    }?>
+            </ul>
         </div>
     </div>
+
     <div class="row" style="margin-top:10px;">
         <div class="col">
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php if(isset($cadastro)){ echo $cadastro[0]['aceitaContato'] === 1? "value='1' checked":"value='0'";}else{echo "value='1' required checked";}?> name="aceitaContato" id="aceitaContato"> >
-            <!-- <input type="hidden" value="0" name="aceitaContato" id="aceitaContato"> -->
             <label class="form-check-label" for="exampleCheck1">autoriza contato?</label>
         </div>
         </div>
@@ -62,9 +68,9 @@ function NomeIdCurso($array,$id){
     <thead>
         <tr>
         <th scope="col">Nome</th>
-        <th scope="col">Whatszaap</th>
+        <th scope="col">WhatsApp</th>
         <th scope="col">Email</th>
-        <th scope="col">Curso</th>
+        <th scope="col">Escola</th>
         <th scope="col">Contato</th>
         <th scope="col" >Opções</th>
         <th scope="col" >Opções</th>
@@ -79,7 +85,7 @@ function NomeIdCurso($array,$id){
                 $contatos[$i]["nome"] ." </td><td>". 
                 $contatos[$i]["whatzaap"] ." </td><td>". 
                 $contatos[$i]["email"] ." </td><td>". 
-                NomeIdCurso($Curso,$contatos[$i]["Curso_id"])."</td><td>" 
+                $contatos[$i]["Escola"]."</td><td>" 
                 ?><?php 
                 echo  $contatos[$i]["aceitaContato"]? "Sim </td>" : "Não </td>";
             ?>

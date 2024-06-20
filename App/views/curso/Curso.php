@@ -17,7 +17,7 @@ function NomeId($array,$id){
     </div>
     <div class="row" style="margin-top:10px;">
         <div class="col">
-            <input type="text" class="form-control" <?php echo isset($Res)?"value= ".$Res[0]['periodo']:" placeholder= preiodo" ?>  name="periodo" id="email" required>
+            <input type="text" class="form-control" <?php echo isset($Res)?"value= ".$Res[0]['periodo']:" placeholder= periodo" ?>  name="periodo" id="email" required>
         </div>
     </div>
     <div class="row" style="margin-top:10px;">
@@ -44,7 +44,7 @@ function NomeId($array,$id){
         <tr>
         <th scope="col">Curso</th>
         <th scope="col">Periodo</th>
-        <th scope="col">Responsavel</th>
+        <th scope="col">Responsável</th>
         <th scope="col">Opções</th>
         <th scope="col">Opções</th>
         </tr>

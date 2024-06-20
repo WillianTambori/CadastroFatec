@@ -58,8 +58,11 @@ class zaapController{
                 foreach($cont as $ctt){
                 if($cadastro[1] === "Todos os cursos"){array_push($contatos,$ctt);}
                 else{
-                    if(intval($cadastro[1]) === $ctt['Curso_id'])
-                    array_push($contatos,$ctt);
+                    $CursoEscolhido = $this->cursoModelo->obterCursoPorContato($ctt["whatzaap"]);
+                    foreach($CursoEscolhido as $ct){
+                        if(intval($cadastro[1]) === $ct['Curso_id'])
+                        array_push($contatos,$ctt);
+                    }
                 }
                 }
             }
@@ -111,7 +114,7 @@ class zaapController{
         include "App/views/zaap/usuario.php";
     }
     public function dispararMsn($param){
-        
+        $Curso = $this->cursoModelo->obterCurso();
         $usuario = json_decode($this->conection->numZaap());
         $Cadastro = $this->cadastroModelo->obterCadastro();
         $contatos =  [];
@@ -135,7 +138,7 @@ class zaapController{
         }
     }
     public function dispararMidia($param){
-        
+        $Curso = $this->cursoModelo->obterCurso();
         $usuario = json_decode($this->conection->numZaap());
         $Cadastro = $this->cadastroModelo->obterCadastro();
         $contatos =  [];
@@ -163,7 +166,7 @@ class zaapController{
     
     }
     public function dispararUrl($param){
-        
+        $Curso = $this->cursoModelo->obterCurso();
         $usuario = json_decode($this->conection->numZaap());
         $Cadastro = $this->cadastroModelo->obterCadastro();
         $contatos =  [];

@@ -45,7 +45,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Whatszaap</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Curso</th>
+                        <th scope="col">Escola</th>
                         <th scope="col">Contato</th>
                         </tr>
                     </thead>
@@ -58,7 +58,7 @@
                                     $contatos[$i]["nome"] ." </td><td>". 
                                     $contatos[$i]["whatzaap"] ." </td><td>". 
                                     $contatos[$i]["email"] ." </td><td>". 
-                                    NomeId($Curso,$contatos[$i]["Curso_id"])."</td><td>" 
+                                    $contatos[$i]["Escola"]."</td><td>" 
                                     ?><?php 
                                     echo  $contatos[$i]["aceitaContato"]? "Sim </td>" : "Não </td>";
                                 ?>
@@ -79,12 +79,6 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="mensagem" rows="2" name="param[1]"></textarea>
                 <button class="btn btn-outline-success" type="submit" id="button-addon2">Enviar mensagem</button>
         </div>
-                <!-- <div class="input-group mb-3">
-                    <input type="hidden" name="param[0]" value=<?php echo json_encode($telefones); ?>>
-                    <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="param[1]">
-                    <button class="btn btn-outline-success" type="button" id="inputGroupFileAddon04">Enviar documento</button>
-                </div> -->
-            
         </form>
         <form action="index.php?class=Zaap&acao=dispararUrl" method="post">
                 
@@ -109,13 +103,13 @@
         if(isset($tel)){
             for($i = 0; $i < count($tel);$i++){?>
 
-                    <div class="col">   
-                        
-                        <div class="alert alert-<?php echo $tel[$i]["resultado"]?"success ": "danger "; ?>" role="alert">
-                        <?= $tel[$i]["resultado"]?"envio a ".$tel[$i]["numero"]." com sucesso":"envio a ".$tel[$i]["numero"]." falhado"; ?>
-                        </div>
-                    </div>
-                    <?php
+            <div class="col">   
+                
+                <div class="alert alert-<?php echo $tel[$i]["resultado"]?"success ": "danger "; ?>" role="alert">
+                <?= $tel[$i]["resultado"]?"envio a ".$tel[$i]["numero"]." com sucesso":"envio a ".$tel[$i]["numero"]." falhado"; ?>
+                </div>
+            </div>
+            <?php
             }
         }
         

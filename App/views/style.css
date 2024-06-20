@@ -1,22 +1,24 @@
 body{
-    background-color:white;
+    background-color:#d4d4d4;
     margin: 0;
+    
 }
 header{
+    color: white;
     display: flex;
     align-items: center;
     justify-content:flex-start;
-    background-color: #F24452;
+    background-color: #b20000;
     height: 5vh;
     width: 100%;
-    margin: 0;
+    padding: 10px;
 }
 nav{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #737373;
+    background-color: #4b565c;
     height: 8vh;
     width: 100%;
     margin: 0;
@@ -43,6 +45,7 @@ article{
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    width: 98%;
 }
 .temperatura{
     
@@ -58,9 +61,10 @@ article{
 }
 
 footer{
-    background-color: #F24452 ;
+    color: #eaecee;
+    background-color: #232323;
     height: 15vh;
-    padding-top: 20px;
+    padding: 20px;
     margin-top: 18vh;
     position: absolute;
     bottom: 0px;

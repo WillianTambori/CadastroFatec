@@ -31,27 +31,6 @@ class EmailController{
         {
             $this->contatos();
         }
-        // $Cadastro = $this->cadastroModelo->obterCadastro();
-        // $contatos =  [];
-        // $ml = [];
-        // if(isset($param[0])){
-        // $email = json_decode($param[0]);
-        //     // for($i = 0;$i < count($email);$i++){
-        //     //     $num = $email[$i];
-        //     //     $res = json_decode($this->email->mensagem($num,$param[1]));
-               
-        //     //     if($res->success){
-        //     //         $mls = array("resultado" => true, "numero" => $res->message->_data->to->user);}
-        //     //         else{$mls = array("resultado" => false, "numero" => $num);}
-
-        //     //     array_push($ml,$mls);
-
-        //     // }
-        //     array_push($ml,$param[0]);
-            
-            
-        // }
-        // include "App/views/email/enviar.php";
     }
     public function contatos($cadastro = null){
         if(isset($cadastro[0])){
@@ -62,8 +41,11 @@ class EmailController{
                 foreach($cont as $ctt){
                 if($cadastro[1] === "Todos os cursos"){array_push($contatos,$ctt);}
                 else{
-                    if(intval($cadastro[1]) === $ctt['Curso_id'])
-                    array_push($contatos,$ctt);
+                    $CursoEscolhido = $this->cursoModelo->obterCursoPorContato($ctt["whatzaap"]);
+                    foreach($CursoEscolhido as $ct){
+                        if(intval($cadastro[1]) === $ct['Curso_id'])
+                        array_push($contatos,$ctt);
+                    }
                 }
                 }
             }

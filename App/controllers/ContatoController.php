@@ -3,7 +3,8 @@ namespace App\controllers;
 
 use App\models;
 use App\Conexao\ConexaoBD;
-
+use App\models\ContatoModel;
+use Exception;
 
 class ContatoController{
     private $ContatoModelo;
@@ -20,26 +21,42 @@ class ContatoController{
 
     public function listarContato()
     {
+        
         if(isset($_GET['ag'])){
             
-            if(isset($_POST['adicionar'])) $this->AdicionarContato($_POST['nome'],$_POST['email'],$_POST['Escola'],$_POST['whatzaap'],isset($_POST['aceitaContato'])?1:0,$_POST['Cadastro_id'],$_POST['Curso_id']);
-            if(isset($_POST['editar'])) $this->alterarContato($_POST['id'],$_POST['nome'],$_POST['email'],$_POST['Escola'],$_POST['whatzaap'],isset($_POST['aceitaContato'])?1:0,$_POST['Cadastro_id'],$_POST['Curso_id']);
+            if(isset($_POST['adicionar']))
+            {
+                if(isset($_POST['Curso_id']))$this->AdicionarContato($_POST['nome'],$_POST['email'],$_POST['Escola'],$_POST['whatzaap'],isset($_POST['aceitaContato'])?1:0,$_POST['Cadastro_id'],$_POST['Curso_id']);
+                else{
+                    $cs = "Erro: Curso não escolhido";
+                    include_once "App/views/Erro.php";
+                } 
+            }
+                if(isset($_POST['editar'])) $this->alterarContato($_POST['id'],$_POST['nome'],$_POST['email'],$_POST['Escola'],$_POST['whatzaap'],isset($_POST['aceitaContato'])?1:0,$_POST['Cadastro_id'],$_POST['Curso_id']);
 
             if(isset($_GET["id"]) && is_numeric($_GET["id"]) && isset($_GET["ex"])){
-                if($_GET['ex'] === '1'){$cadastro = $this->ContatoModelo->obterContatoPorId($_GET['id']);}
+                if($_GET['ex'] === '1'){
+                    $cadastro = $this->ContatoModelo->obterContatoPorId($_GET['id']);
+                    $ct = $this->ContatoModelo->obterContatoPorId($_GET['id']);
+                    $CursoInscrito = $this->CursoModelo->obterCursoPorContato($ct[0]['whatzaap']);}
                 
                 if($_GET['ex'] === '2'){$this->ContatoModelo->excluirContato($_GET['id']);}
             }
+            
             $Curso = $this->CursoModelo->obterCurso();
             $contatos = $this->ContatoModelo->obterContatoPorCadastro($_GET['ag']);
             include "App/views/Contato/PorCadastro.php";
         }else{
             $Cadastro = $this->CadastroModelo->obterCadastro();
             $Curso = $this->CursoModelo->obterCurso();
-            $contato = $this->ContatoModelo->obterContato();
-            $header = ["Id","Nome","Email","Escola","Whatszaap","Contato","Cadastro","Curso"];
-            $contatos = $this->visualizar($Cadastro, $Curso, $contato);
-            if(isset($_GET["pdf"])){
+            $header = ["Id","Nome","Email","Escola","WhatsApp","Contato","Cadastro"];
+            if(isset($_POST['cs'])){
+                 if($_POST['cs'] !== "Todos" ){
+                    $contato = $this->ContatoModelo->obterContatoPorCurso($_POST['cs']); 
+                 }else{$contato = $this->ContatoModelo->obterContato();}
+                $contatos = $this->visualizar($Cadastro, $Curso, $contato);
+            }
+            if(isset($_POST["PDF"])){
                 $this->gerarPdf($header,$contatos);
                 header('Content-Type: text/csv');
                 header('Content-Disposition: attachment; filename=' . basename('./App/views/arquivos/file.csv'));
@@ -50,6 +67,7 @@ class ContatoController{
             }
             include "App/views/Contato/Contato.php";
         }
+        
     }
     public function ContatosPorCadastro($cadastro = null){
         
@@ -114,7 +132,7 @@ class ContatoController{
         foreach ($res as &$ctt){
             foreach ($ctt as $ct => $cto){
                 if ($ct === "Cadastro_id") $ctt['Cadastro_id'] = Cad($cadastro, $cto, $cadastro);
-                if ($ct === "Curso_id") $ctt["Curso_id"] = Curs($curso, $cto, $curso);
+                if ($ct === "aceitaContato") $ctt["aceitaContato"] = $ctt["aceitaContato"]?"sim":"não" ;
             }
         }
         
@@ -129,6 +147,12 @@ class ContatoController{
     }
     public function AdicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id,$Curso_id){
         $Contato= $this->ContatoModelo->adicionarContato($nome, $email, $Escola, $whatzaap, $aceitaContato, $Cadastro_id,$Curso_id);
+    }
+    public function Teste(){
+        $whatzaap = '123';
+        $cs = $this->CursoModelo->obterCursoPorContato($whatzaap);
+        $Curso = $this->CursoModelo->obterCurso();
+        include_once "App/views/TestePost.php";
     }
 
     

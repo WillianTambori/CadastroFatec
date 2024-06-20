@@ -1,4 +1,4 @@
-<div class="container px-4 text-center"> 
+<div class="container px-4 text-center" style="padding: 20px"> 
     <div class="row ">
 
         <div class="col-4">
@@ -43,7 +43,7 @@
                     <thead>
                         <tr>
                         <th scope="col">Nome</th>
-                        <th scope="col">Whatszaap</th>
+                        <th scope="col">WhatsApp</th>
                         <th scope="col">Email</th>
                         <th scope="col">Curso</th>
                         <th scope="col">Contato</th>
@@ -58,7 +58,7 @@
                                     $contatos[$i]["nome"] ." </td><td>". 
                                     $contatos[$i]["whatzaap"] ." </td><td>". 
                                     $contatos[$i]["email"] ." </td><td>". 
-                                    NomeId($Curso,$contatos[$i]["Curso_id"])."</td><td>" 
+                                    $contatos[$i]["Escola"]."</td><td>" 
                                     ?><?php 
                                     echo  $contatos[$i]["aceitaContato"]? "Sim </td>" : "Não </td>";
                                 ?>

@@ -27,13 +27,13 @@
             <a class="nav-link <?php echo ($_GET['acao']==='ListarContato'?"active":"") ?>" href="./index.php?class=Contato&acao=ListarContato">Contato</a>
         </h3>
         <h3>
-            <a class="nav-link <?php echo ($_GET['class']==='Responsavel'?"active":"") ?>" href="index.php?class=Responsavel&acao=ListarResponsavel">Responsavel</a>
+            <a class="nav-link <?php echo ($_GET['class']==='Responsavel'?"active":"") ?>" href="index.php?class=Responsavel&acao=ListarResponsavel">Responsável</a>
         </h3>
         <h3>
             <a class="nav-link <?php echo ($_GET['class']==='Curso'?"active":"") ?>" href="index.php?class=Curso&acao=ListarCurso">Curso</a>
         </h3>
         <h3>
-            <a class="nav-link <?php echo ($_GET['acao']==='conectar'?"active":"") ?>" href="index.php?class=Zaap&acao=iniciar">Zaap</a>
+            <a class="nav-link <?php echo ($_GET['acao']==='conectar'?"active":"") ?>" href="index.php?class=Zaap&acao=iniciar">WhatsApp</a>
         </h3>
         <h3>
             <a class="nav-link <?php echo ($_GET['acao']==='conectar'?"active":"") ?>" href="index.php?class=Email&acao=enviar">Email</a>
@@ -83,9 +83,9 @@
         </section>
     </article>
         <footer>
-            <p>Desenvolvido por FATEC - Análise e Desenvolvimento de Sistemas</p>
+            <p>Desenvolvido por Willian Diego Tambori msn.willian@gmail.com</p>
             <p>"Feliz é aquele que programa" </p>
-            <p>Copyriight © 2023 - Todos os direitos reservados 2023</p>
+            <p>Copyriight © 2024 - Todos os direitos reservados 2024</p>
         </footer>
         </body>
 </html>
