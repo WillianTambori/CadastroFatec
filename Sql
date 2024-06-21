@@ -1,0 +1,133 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Inscritos
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `Inscritos` ;
+
+-- -----------------------------------------------------
+-- Schema Inscritos
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Inscritos` ;
+USE `Inscritos` ;
+
+-- -----------------------------------------------------
+-- Table `Inscritos`.`Responsavel`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Inscritos`.`Responsavel` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `telefone` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `telefone_UNIQUE` (`telefone` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Inscritos`.`Cadastro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Inscritos`.`Cadastro` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `Data` DATE NOT NULL,
+  `Forma` VARCHAR(45) NOT NULL,
+  `Responsavel_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `fk_Cadastro_Responsavel1_idx` (`Responsavel_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Cadastro_Responsavel1`
+    FOREIGN KEY (`Responsavel_id`)
+    REFERENCES `Inscritos`.`Responsavel` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Inscritos`.`Contato`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Inscritos`.`Contato` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `Escola` VARCHAR(45) NOT NULL,
+  `whatzaap` VARCHAR(45) NOT NULL,
+  `aceitaContato` TINYINT NOT NULL,
+  `Cadastro_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `whatzaap_UNIQUE` (`whatzaap` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_Contato_Cadastro1_idx` (`Cadastro_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Contato_Cadastro1`
+    FOREIGN KEY (`Cadastro_id`)
+    REFERENCES `Inscritos`.`Cadastro` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Inscritos`.`Curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Inscritos`.`Curso` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `curso` VARCHAR(45) NOT NULL,
+  `periodo` VARCHAR(45) NOT NULL,
+  `Responsavel_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Curso_Responsavel1_idx` (`Responsavel_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Curso_Responsavel1`
+    FOREIGN KEY (`Responsavel_id`)
+    REFERENCES `Inscritos`.`Responsavel` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Inscritos`.`Contato_has_Curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Inscritos`.`Contato_has_Curso` (
+  `whatzaap_id` VARCHAR(45) NOT NULL,
+  `Curso_id` INT NOT NULL,
+  PRIMARY KEY (`Curso_id`, `whatzaap_id`),
+  INDEX `fk_Contato_has_Curso_Curso1_idx` (`Curso_id` ASC) VISIBLE,
+  INDEX `fk_Contato_has_Curso_Contato1_idx` (`whatzaap_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Contato_has_Curso_Contato1`
+    FOREIGN KEY (`whatzaap_id`)
+    REFERENCES `Inscritos`.`Contato` (`whatzaap`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Contato_has_Curso_Curso1`
+    FOREIGN KEY (`Curso_id`)
+    REFERENCES `Inscritos`.`Curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+USE `Inscritos`;
+
+DELIMITER $$
+USE `Inscritos`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `Inscritos`.`Cadastro_BEFORE_DELETE` BEFORE DELETE ON `Cadastro` FOR EACH ROW
+BEGIN
+	delete from Contato where Cadastro_id = old.id;
+END$$
+
+USE `Inscritos`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `Inscritos`.`Contato_BEFORE_DELETE` BEFORE DELETE ON `Contato` FOR EACH ROW
+BEGIN
+	DELETE FROM Contato_has_Curso WHERE whatzaap_id = old.whatzaap;
+END$$
+
+
+DELIMITER ;
